@@ -1,12 +1,10 @@
 import React, { useState, useRef } from 'react';
-// import { Avatar } from '../Avatar/Avatar';
-
-// import user from '../../asset/image/user.jpg';
 import useOnClickOutside from '../../../shared/hooks/useOutside';
-import { ArrowIcon, BackIcon, LogoIcon, SearchIcon, SettingsIcon } from '../../../assets';
+import { ArrowIcon, BackIcon, LogoIcon, SearchIcon, SettingsIcon, user } from '../../../assets';
 import styles from './header.module.scss';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import { Avatar } from '../../../shared/ui';
 
 type Props = {
   children?: React.ReactNode;
@@ -73,8 +71,10 @@ export const Header: React.FC<Props> = ({ children }: Props) => {
             </div>
           </form>
           <div className={styles.userMenu}>
-            <div className={styles.userName}>Дарья Кузнецова</div>
-            {/* <Avatar image={user} /> */}
+            <div className={styles.userName} title="Дарья Кузнецова">
+              Дарья Кузнецова
+            </div>
+            <Avatar image={user} />
             <ArrowIcon />
           </div>
         </div>
