@@ -1,0 +1,11 @@
+.main {
+  display: flex;
+  align-items: flex-start;
+  max-width: 1153px;
+  width: 100%;
+  margin: 75px auto;
+  padding: 0 20px;
+  @media (max-width: 768px) {
+    padding: 0 15px;
+  }
+}

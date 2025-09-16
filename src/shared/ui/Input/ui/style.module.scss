@@ -1,0 +1,30 @@
+.input {
+  font-weight: normal;
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+  line-height: 21px;
+  color: #575757;
+  padding: 15px 20px;
+  border-radius: 5px;
+  background: #fff;
+  width: 100%;
+  border: none;
+  height: 63px;
+  margin-bottom: 15px;
+  outline: none;
+  &::placeholder {
+    color: #797979;
+  }
+  &:focus {
+    border: none;
+    outline: none;
+  }
+  @media (max-width: 768px) {
+    height: 40px;
+  }
+  @media (max-width: 576px) {
+    font-size: 14px;
+    line-height: 16px;
+    padding: 10px 15px;
+  }
+}

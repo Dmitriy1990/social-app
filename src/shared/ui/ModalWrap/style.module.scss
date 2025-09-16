@@ -1,0 +1,26 @@
+.container {
+  max-width: 580px;
+  width: 100%;
+  position: relative;
+  background: #fff;
+  @media (max-width: 768px) {
+    padding-top: 40px;
+  }
+}
+
+.close {
+  cursor: pointer;
+  position: absolute;
+  top: 2px;
+  right: -20px;
+  @media (max-width: 768px) {
+    right: 15px;
+    top: 15px;
+  }
+  path {
+    transition: fill 0.3s;
+  }
+  &:hover path {
+    fill: #333;
+  }
+}

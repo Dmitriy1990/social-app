@@ -1,7 +1,7 @@
-import { LogoIcon, ArrowIcon } from '../../../assets';
 import { Header } from '../../../widgets/header';
+import type { FC } from 'react';
 
-export const MainLayout = () => {
+export const MainLayout: FC = () => {
   return (
     <div>
       <Header />
