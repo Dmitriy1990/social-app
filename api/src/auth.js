@@ -23,3 +23,92 @@ function verifyRefreshToken(token) {
 }
 
 export { signAccessToken, signRefreshToken, verifyAccessToken, verifyRefreshToken };
+
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: Авторизация и токены
+ */
+
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     summary: Регистрация нового пользователя
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: alice
+ *               password:
+ *                 type: string
+ *                 example: password123
+ *     responses:
+ *       201:
+ *         description: Пользователь успешно зарегистрирован
+ *       400:
+ *         description: Ошибка регистрации
+ */
+
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: Авторизация пользователя
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: alice
+ *               password:
+ *                 type: string
+ *                 example: password123
+ *     responses:
+ *       200:
+ *         description: Авторизация успешна (access token в ответе, refresh в httpOnly cookie)
+ *       401:
+ *         description: Неверные данные
+ */
+
+/**
+ * @swagger
+ * /auth/refresh:
+ *   post:
+ *     summary: Обновление access-токена по refresh-токену
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: Новый access-токен
+ *       401:
+ *         description: Недействительный refresh-токен
+ */
+
+/**
+ * @swagger
+ * /auth/logout:
+ *   post:
+ *     summary: Выход пользователя (удаление refresh-токена)
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: Успешный выход
+ */

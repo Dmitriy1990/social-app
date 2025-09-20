@@ -13,21 +13,26 @@ import {
   signRefreshToken,
 } from './auth.js';
 import { authenticate } from './middleware.js';
-config();
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './swagger.js';
 
+config();
 connectDB();
 
 const app = express();
+
 app.use(
   cors({
-    origin: 'http://localhost:3000', // фронтенд
-    credentials: true, // разрешаем cookie
+    origin: 'http://localhost:3000',
+    credentials: true,
   }),
 );
 app.use(express.json());
 app.use(cookieParser());
 
 const PORT = process.env.PORT || 3001;
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.post('/auth/register', async (req, res) => {
   console.log('req.body', req.body);
