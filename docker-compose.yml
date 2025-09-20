@@ -1,14 +1,41 @@
-version: '3'
+version: "3"
 
 services:
-  frontend:
-    build: .
+  client:
+    build: ./client
     restart: always
     ports:
       - "3000:3000"
     volumes:
-      - .:/app
+      - ./client:/app
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
       - CHOKIDAR_INTERVAL=100
+
+  api:
+    build: ./api
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - MONGO_URI=mongodb://mongo:27017/jwt_demo
+      - ACCESS_TOKEN_SECRET=super_secret_acces
+      - REFRESH_TOKEN_SECRET=super_secret_refresh
+      - ACCESS_TOKEN_EXPIRES_IN=15m
+      - REFRESH_TOKEN_EXPIRES_IN=7d
+    volumes:
+      - ./api:/app
+    depends_on:
+      - mongo 
+
+  mongo:
+    image: mongo:6
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

@@ -1,0 +1,124 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+}
+
+.main {
+  max-width: 480px;
+  width: 100%;
+}
+
+.form {
+  padding-left: 15px;
+  padding-right: 15px;
+  button {
+    width: 100%;
+    height: 63px;
+    margin-bottom: 15px;
+
+    @media (max-width: 768px) {
+      height: 40px;
+    }
+  }
+  &__title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    text-align: center;
+    color: #575757;
+    margin-bottom: 24px;
+    @media (max-width: 768px) {
+      font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 11px;
+    }
+  }
+}
+
+.restore {
+  text-align: center;
+  font-size: 14px;
+  line-height: 16px;
+  display: block;
+  color: #575757;
+  margin-bottom: 15px;
+}
+
+.decsription {
+  text-align: center;
+  color: #575757;
+  font-size: 12px;
+  margin-top: 44px;
+  margin-bottom: 20px;
+  line-height: 20px;
+  a {
+    color: darkblue;
+  }
+}
+
+.footerBlock {
+  margin-bottom: 32px;
+  @media (max-width: 768px) {
+    margin-top: auto;
+  }
+}
+
+.linkTo {
+  font-weight: 500;
+  text-align: center;
+  font-size: 24px;
+  margin: 0 auto 20px;
+  line-height: 28px;
+  display: block;
+  color: darkblue;
+  &:last-child {
+    margin: 0 auto;
+  }
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+.checkboxBlock {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+}
+
+.checkboxlabel {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  color: #797979;
+  margin-left: 10px;
+  @media (max-width: 576px) {
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
+
+.titleLogin {
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 75px;
+  text-align: center;
+  margin-top: 50px;
+  text-transform: uppercase;
+  color: darkblue;
+  margin-bottom: 25px;
+  @media (max-width: 768px) {
+    font-size: 36px;
+    line-height: 42px;
+    margin-bottom: 50px;
+    margin-top: 84px;
+  }
+}

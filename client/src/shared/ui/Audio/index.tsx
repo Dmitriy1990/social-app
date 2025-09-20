@@ -5,29 +5,12 @@ import styles from './style.module.scss';
 export const Audio = () => {
   const [isPlay, setIsPlay] = useState(false);
   const [range, setRange] = useState('100');
-  // const [meta, setMeta] = useState<mm.IAudioMetadata>();
   const audioRef = useRef<HTMLAudioElement>(null);
   const bufferAmountRef = useRef<HTMLDivElement>(null);
   const progressAmountRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const currTimeRef = useRef<HTMLInputElement>(null);
-
-  const handleMetadataReading = (fileList: any) => {
-    // const readFromBlob = (blob: any) => {
-    //   mm.parseBlob(blob, {
-    //     duration: true,
-    //   }).then((metadata) => {
-    //     console.log(metadata);
-    //     setMeta(metadata);
-    //   });
-    // };
-    // readFromBlob(fileList);
-  };
-
-  useEffect(() => {
-    handleMetadataReading(aud);
-  }, []);
 
   const play = () => {
     if (audioRef && audioRef.current) {

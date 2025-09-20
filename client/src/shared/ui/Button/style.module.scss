@@ -1,0 +1,35 @@
+.button {
+  appearance: none;
+  font-family: inherit;
+  display: inline-block;
+  min-width: 100px;
+  border: 0;
+  border-radius: 5px;
+  background: darkblue;
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  text-transform: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s ease-out;
+  &:hover {
+    background: #1d49aa;
+  }
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px #cbd6ee;
+  }
+  &.small {
+    font-size: 14px;
+  }
+  &.ttu {
+    text-transform: uppercase;
+  }
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
