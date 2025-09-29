@@ -3,58 +3,97 @@ import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import { Button, Input } from '../../../shared/ui';
 import { routes } from '../../../shared/api/routes';
+import { registerUser } from '../api/authSlice';
+import { useAppDispatch } from '../../../shared/hooks/useDispatch';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const schema = () =>
+  yup.object().shape({
+    username: yup
+      .string()
+      .required('Поле обязательно к заполнению')
+      .min(4, 'Минимальная длина имени 6')
+      .max(20, 'Максимальная длина имени 20'),
+    password: yup
+      .string()
+      .required('Поле обязательно к заполнению')
+      .min(6, 'Минимальная длина символов 6')
+      .max(20, 'Максимальная длина символов 20'),
+    repeatPassword: yup
+      .string()
+      .required('Поле обязательно к заполнению')
+      .oneOf([yup.ref('password')], 'Пароли не совпадают'),
+  });
 
 export const Register = () => {
-  const [account, setAccount] = useState('');
-  const [nickName, setNickName] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
+  const dispatch = useAppDispatch();
 
-  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const res = await fetch('http://localhost:3001/auth/register', {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: 'alice', password: 'password123' }),
-      });
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || 'Registration failed');
-      }
-    } catch (e) {
-      console.log(e);
-    }
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+    reset,
+  } = useForm({
+    mode: 'onSubmit',
+    resolver: yupResolver(schema()),
+    criteriaMode: 'all',
+    shouldFocusError: true,
+  });
+
+  const submit = () => {
+    const { username, password } = getValues();
+    const obj = { username, password };
+    dispatch(registerUser(obj));
+    reset();
   };
 
   return (
     <div className={styles.container}>
       <h2 className={styles.titleLogin}>social</h2>
       <div className={styles.main}>
-        <form className={styles.form} onSubmit={submit}>
+        <form className={styles.form} onSubmit={handleSubmit(submit)}>
           <p className={styles.form__title}>Регистрация</p>
-          <Input
-            value={nickName}
-            onChange={(e) => setNickName(e.target.value)}
-            placeholder="Никнейм пользователя"
+          <Controller
+            control={control}
+            name="username"
+            render={({ field }) => (
+              <Input
+                {...field}
+                placeholder="Никнейм пользователя"
+                error={errors?.username?.message}
+              />
+            )}
           />
-          <Input
-            value={account}
-            onChange={(e) => setAccount(e.target.value)}
-            placeholder="Аккаунт"
+
+          <Controller
+            control={control}
+            name="password"
+            render={({ field }) => (
+              <Input
+                type="password"
+                {...field}
+                placeholder="Пароль"
+                error={errors?.password?.message}
+              />
+            )}
           />
-          <Input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Пароль"
+          <Controller
+            control={control}
+            name="repeatPassword"
+            render={({ field }) => (
+              <Input
+                {...field}
+                type="password"
+                placeholder="Повторите пароль"
+                error={errors?.repeatPassword?.message}
+              />
+            )}
           />
-          <Input
-            value={repeatPassword}
-            onChange={(e) => setRepeatPassword(e.target.value)}
-            placeholder="Повторите пароль"
-          />
-          <Button>Продолжить</Button>
+
+          <Button type="submit">Продолжить</Button>
         </form>
       </div>
       <div className={styles.footerBlock}>

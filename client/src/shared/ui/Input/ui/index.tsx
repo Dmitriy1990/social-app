@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styles from './style.module.scss';
+import clsx from 'clsx';
 
-type Props = {
-  placeholder?: string;
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   value: string;
-  type?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 };
 
-export const Input: React.FC<Props> = ({ placeholder, value, onChange, type = 'text' }: Props) => {
-  return (
-    <div>
-      <input
-        className={styles.input}
-        value={value}
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-      />
-    </div>
-  );
-};
+export const Input = forwardRef<HTMLInputElement, Props>(
+  ({ value, type = 'text', className, error, ...rest }, ref) => {
+    return (
+      <div>
+        <input
+          ref={ref}
+          className={clsx(styles.input, error && styles.error, className ?? '')}
+          value={value}
+          type={type}
+          {...rest}
+        />
+        {error && <p className={styles.errorMessage}>{error}</p>}
+      </div>
+    );
+  },
+);
+
+Input.displayName = 'Input';

@@ -7,6 +7,6 @@ type Props = {
   children: ReactNode;
 };
 
-export const MainProviders = ({ children }: Props) => {
+export const MainProvider = ({ children }: Props) => {
   return <Provider store={store}>{children}</Provider>;
 };

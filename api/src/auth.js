@@ -6,14 +6,17 @@ const {
   REFRESH_TOKEN_EXPIRES_IN,
 } = process.env;
 
-function signAccessToken(payload) {
-  return jwt.sign(payload, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRES_IN || '15m' });
+function signAccessToken(userId) {
+  return jwt.sign({ id: userId.toString() }, ACCESS_TOKEN_SECRET, {
+    expiresIn: ACCESS_TOKEN_EXPIRES_IN,
+  });
 }
 
-function signRefreshToken(payload) {
-  return jwt.sign(payload, REFRESH_TOKEN_SECRET, { expiresIn: REFRESH_TOKEN_EXPIRES_IN || '7d' });
+function signRefreshToken(userId) {
+  return jwt.sign({ id: userId.toString() }, REFRESH_TOKEN_SECRET, {
+    expiresIn: REFRESH_TOKEN_EXPIRES_IN,
+  });
 }
-
 function verifyAccessToken(token) {
   return jwt.verify(token, ACCESS_TOKEN_SECRET);
 }
@@ -49,10 +52,10 @@ export { signAccessToken, signRefreshToken, verifyAccessToken, verifyRefreshToke
  *             properties:
  *               username:
  *                 type: string
- *                 example: alice
+ *                 example: name
  *               password:
  *                 type: string
- *                 example: password123
+ *                 example: password
  *     responses:
  *       201:
  *         description: Пользователь успешно зарегистрирован
@@ -78,10 +81,10 @@ export { signAccessToken, signRefreshToken, verifyAccessToken, verifyRefreshToke
  *             properties:
  *               username:
  *                 type: string
- *                 example: alice
+ *                 example: name
  *               password:
  *                 type: string
- *                 example: password123
+ *                 example: password
  *     responses:
  *       200:
  *         description: Авторизация успешна (access token в ответе, refresh в httpOnly cookie)

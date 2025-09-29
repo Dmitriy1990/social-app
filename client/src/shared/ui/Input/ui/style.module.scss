@@ -15,6 +15,10 @@
   &::placeholder {
     color: #797979;
   }
+  &.error {
+    color: #ff0000;
+    border: 1px solid currentColor;
+  }
   &:focus {
     border: none;
     outline: none;
@@ -27,4 +31,10 @@
     line-height: 16px;
     padding: 10px 15px;
   }
+}
+
+.errorMessage {
+  color: #ff0000;
+  margin: 0;
+  font-size: 12px;
 }
