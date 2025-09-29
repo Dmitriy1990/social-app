@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { authApi } from '../../../shared/api/auth';
 import type { AppDispatch, RootState } from '../../../app/store';
-import type { AxiosInstance } from 'axios';
+import type { AxiosError, AxiosInstance } from 'axios';
 
 export interface AuthState {
   loading: boolean;
@@ -30,8 +30,12 @@ export const loginUser = createAsyncThunk<User, User>('auth/user', async (obj: U
 export const registerUser = createAsyncThunk<User, User>(
   'auth/user',
   async (obj: User, thunkApi) => {
-    const response = await authApi.register(obj.username, obj.password);
-    return response.data as User;
+    try {
+      const response = await authApi.register(obj.username, obj.password);
+      return response;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err);
+    }
   },
 );
 

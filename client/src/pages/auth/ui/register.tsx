@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 import { Button, Input } from '../../../shared/ui';
 import { routes } from '../../../shared/api/routes';
@@ -29,6 +29,7 @@ const schema = () =>
 
 export const Register = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const {
     control,
@@ -36,6 +37,7 @@ export const Register = () => {
     formState: { errors },
     getValues,
     reset,
+    setError,
   } = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(schema()),
@@ -46,8 +48,17 @@ export const Register = () => {
   const submit = () => {
     const { username, password } = getValues();
     const obj = { username, password };
-    dispatch(registerUser(obj));
-    reset();
+    dispatch(registerUser(obj))
+      .unwrap()
+      .then(() => {
+        reset();
+        navigate(routes.main);
+      })
+      .catch((e) => {
+        if (e.data.message) {
+          setError('username', { type: 'validate', message: e.data.message });
+        }
+      });
   };
 
   return (
